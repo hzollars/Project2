@@ -1,0 +1,22 @@
+<%- include("../includes/header.ejs", {title:"Add New Customer"}); %>
+    <h1>Add New Customer:</h1>
+    <form action="/customer/insert" method="get">
+        <input type="hidden" id="cu_id" name="cu_id" >
+        Customer Name:
+        <input id="cu_name" name="cu_name" type="text" />
+        <br />
+        <br />
+        Customer Phone:
+        <input id="cu_phone" name="cu_phone" type="text" />
+        <br />
+        <br />
+        Customer Address:
+        <input id="cu_address" name="cu_address" type="text" />
+        <br />
+        <br />
+        <input type="submit" />
+    </form>
+    <br />
+    <a href="/order/all"><< Back</a>
+
+<%- include("../includes/footer.ejs"); %>

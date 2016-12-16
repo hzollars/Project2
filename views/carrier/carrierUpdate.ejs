@@ -1,0 +1,15 @@
+<%- include("../includes/header.ejs", {title:"Update Carrier #" + carrier[0].c_id}); %>
+<h1>Update Carrier #<%= carrier.c_id %></h1>
+<form action="/carrier/update" method="get">
+    <input type="hidden" id="c_id" name="c_id" value="<%= carrier[0].c_id %>">
+    Carrier: <input id="c_name" name="c_name" type="text" value="<%= carrier[0].c_name %>"/>
+    <br /><br />
+
+    <input type="submit" />
+
+</form>
+<br />
+
+<a href="/carrier/all"><< Back</a>
+
+<%- include("../includes/footer.ejs"); %>

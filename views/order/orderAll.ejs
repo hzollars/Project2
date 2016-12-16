@@ -1,0 +1,26 @@
+<%- include("../includes/header.ejs", {title:"Orders"}); %>
+        <h1>Orders</h1>
+        <a href="/order/add">Add New Order</a> <br />
+        <br />
+        <table border="1">
+            <tr><th>Order Number</th><th>Customer</th><th>Carrier</th><th>Price</th><th>Actions</th></tr>
+            <% for(var i=0; result.length > i; i++ ) { %>
+            <tr>
+                <td><a href="/order/?o_id=<%= result[i].o_id %>"><%= result[i].o_id %></a></td>
+                <td><%= result[i].cu_name %></td>
+                <td><%= result[i].c_name %></td>
+                <td><%= '$ ' + result[i].o_price %></td>
+                <td>
+                    <button onclick="event.preventDefault();window.location.href='/order/edit2/?o_id=<%= result[i].o_id %>'">Edit</button>
+                    <form action="/order/delete/" style="display:inline;">
+                        <input type="hidden" name="o_id" id="o_id" value="<%= result[i].o_id %>" />
+                        <input type="submit" value="Delete"/>
+                    </form>
+                </td>
+            </tr>
+            <% } %>
+        </table>
+        <br />
+        <a href="/"><< Back</a>
+
+<%- include("../includes/footer.ejs"); %>

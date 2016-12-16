@@ -1,0 +1,18 @@
+<%- include("../includes/header.ejs", {title:"Order #" + result[0].o_id}); %>
+    <h1>Order #<%= result[0].o_id %></h1>
+    <ul>
+        <li>Customer: <%= result[0].cu_name %></li>
+        <li>Carrier: <%= result[0].c_name %></li>
+        <li>Items:
+            <ul>
+                <% for(var i=0; result.length > i; i++ ) { %>
+                <li><%= result[i].i_name %> - $<%= result[i].i_price %></li>
+                <% } %>
+            </ul>
+        </li>
+        <li>Order Total: $<%= result[0].o_price %></li>
+    </ul>
+
+    <a href="/order/all"><< Back</a>
+
+<%- include("../includes/footer.ejs"); %>

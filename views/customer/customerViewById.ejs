@@ -1,0 +1,11 @@
+<%- include("../includes/header.ejs", {title:"Customer #" + result[0].cu_id}); %>
+    <h1>Customer #<%= result[0].cu_id %></h1>
+    <ul>
+        <li>Customer: <%= result[0].cu_name %></li>
+        <li>Phone: <%= result[0].cu_phone %></li>
+        <li>Address: <%= result[0].cu_address %></li>
+    </ul>
+    <br />
+    <a href="/customer/all"><< Back</a>
+
+<%- include("../includes/footer.ejs"); %>

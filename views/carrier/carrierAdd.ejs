@@ -1,0 +1,16 @@
+<%- include("../includes/header.ejs", {title:"Add New Carrier"}); %>
+
+    <h1>Add New Carrier</h1>
+    <form action="/carrier/insert" method="get">
+        <input type="hidden" id="c_id" name="c_id" >
+        Carrier Name:
+        <input id="c_name" name="c_name" type="text" />
+        <br />
+        <br />
+        <input type="submit" />
+
+    </form>
+    <br />
+    <a href="/carrier/all"><< Back</a>
+
+<%- include("../includes/footer.ejs"); %>

@@ -1,0 +1,53 @@
+<%- include("../includes/header.ejs", {title:"Update Order #" + order.o_id}); %>
+<h1>Update Order #<%= order.o_id%></h1>
+<form action="/order/update" method="get">
+    <input type="hidden" id="o_id" name="o_id" value="<%= order[0].o_id %>">
+    Customer:
+    <select id="cu_id" name="cu_id">
+        <% for(var i=0; customer.length > i; i++ ) {
+            var selected = "";
+            if(customer[i].cu_id == order[0].cu_id) {
+                selected = "selected";
+            }
+        %>
+            <option value=" <%= customer[i].cu_id %>" <%= selected %>><%= customer[i].cu_name %></option>
+        <% } %>
+    </select> <br /><br />
+    Carrier:
+    <select id="c_id" name="c_id">
+        <% for(var i=0; carrier.length > i; i++ ) {
+            var selected = "";
+            if(carrier[i].c_id == order[0].c_id) {
+                selected = "selected";
+            }
+        %>
+        <option value=" <%= carrier[i].c_id %> " <%= selected %> > <%= carrier[i].c_name %></option>
+        <% } %>
+    </select> <br /><br />
+    Item(s):
+    <select id="i_id" name="i_id" multiple="multiple">
+        <% for(var i=0; item.length > i; i++ ) {
+            var selected = "";
+
+            for (var j=0; j< itemX.length; j++ ) {
+                if (selected == "" && item[i].i_id == itemX[j].i_id) {
+                    selected = "selected";
+                }
+            }
+        %>
+        <option value="<%= item[i].i_id %>" <%= selected %>><%= item[i].i_name %> - $<%=item[i].i_price %></option>
+        <% } %>
+    </select>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#i_id').multiselect();
+        });
+    </script>
+    <br />
+    <br />
+    <input type="submit" />
+
+</form>
+<br />
+<a href="/order/all"><< Back</a>
+<%- include("../includes/footer.ejs"); %>

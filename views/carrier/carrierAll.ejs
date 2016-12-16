@@ -1,0 +1,22 @@
+<%- include("../includes/header.ejs", {title:"Carriers"}); %>
+
+<h1>Carriers</h1>
+        <a href="/carrier/add">Add New Carrier</a> <br /><br />
+        <table border="1">
+            <tr><th>Name</th><th>Actions</th></tr>
+            <% for(var i=0; result.length > i; i++ ) { %>
+            <tr>
+                <td><%= result[i].c_name %></td>
+                <td>
+                    <button onclick="event.preventDefault();window.location.href='/carrier/edit2/?c_id=<%= result[i].c_id %>'">Edit</button>
+                    <form action="/carrier/delete" style="display:inline;">
+                        <input type="hidden" name="c_id" id="c_id" value="<%= result[i].c_id %>" />
+                        <input type="submit" value="Delete"/>
+                    </form>
+                </td>
+            </tr>
+            <% } %>
+        </table>
+<br />
+<a href="/"><< Back</a>
+<%- include("../includes/footer.ejs"); %>

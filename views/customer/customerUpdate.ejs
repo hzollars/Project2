@@ -1,0 +1,16 @@
+<%- include("../includes/header.ejs", {title:"Update Customer #" + customer.cu_id}); %>
+<h1>Update Customer #<%= customer.cu_id%></h1>
+<form action="/customer/update" method="get">
+    <input type="hidden" id="cu_id" name="cu_id" value="<%= customer[0].cu_id %>">
+    Customer Name: <input id="cu_name" name="cu_name" type="text" value="<%= customer[0].cu_name %>"/>
+    <br /><br />
+    Customer Phone: <input id="cu_phone" name="cu_phone" type="text" value="<%= customer[0].cu_phone %>"/>
+    <br /><br />
+    Customer Address: <input id="cu_address" name="cu_address" type="text" value="<%= customer[0].cu_address %>"/>
+    <br /><br />
+    <input type="submit" />
+
+</form>
+<br />
+<a href="/customer/all"><< Back</a>
+<%- include("../includes/footer.ejs"); %>

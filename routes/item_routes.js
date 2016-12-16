@@ -1,53 +1,51 @@
 var express = require('express');
 var router = express.Router();
-var school_dal = require('../model/school_dal');
-var address_dal = require('../model/address_dal');
+var item_dal = require('../model/item_dal');
+// var carrier_dal = require('../model/carrier_dal');
+// var customer_dal = require('../model/customer_dal');
 
-
-// View All schools
 router.get('/all', function(req, res) {
-    school_dal.getAll(function(err, result){
+    item_dal.getAll(function(err, result){
         if(err) {
             res.send(err);
         }
         else {
-            res.render('school/schoolViewAll', { 'result':result });
+            res.render('item/itemAll', { 'result':result });
         }
     });
-
 });
 
-// View the school for the given id
 router.get('/', function(req, res){
-    if(req.query.school_id == null) {
-        res.send('school_id is null');
+    if(req.query.i_id == null) {
+        res.send('i_id is null');
     }
     else {
-        school_dal.getById(req.query.school_id, function(err,result) {
+        item_dal.getById(req.query.i_id, function(err,result) {
            if (err) {
                res.send(err);
            }
            else {
-               res.render('school/schoolViewById', {'result': result});
+               res.render('item/itemViewById', {'result': result});
            }
         });
     }
 });
 
-// Return the add a new school form
 router.get('/add', function(req, res){
-    // passing all the query parameters (req.query) to the insert function instead of each individually
-    address_dal.getAll(function(err,result) {
-        if (err) {
-            res.send(err);
-        }
-        else {
-            res.render('school/schoolAdd', {'address': result});
-        }
+    item_dal.getAll(function(err,item) {
+        customer_dal.getAll(function(err, customer) {
+            item_dal.getAll(function(err, item) {
+                if (err) {
+                    res.send(err);
+                }
+                else {
+                    res.render('item/itemAdd', {item: item, customer: customer, item: item});
+                }
+            });
+        });
     });
 });
 
-// View the school for the given id
 router.get('/insert', function(req, res){
     // simple validation
     if(req.query.school_name == null) {
@@ -65,7 +63,7 @@ router.get('/insert', function(req, res){
             }
             else {
                 //poor practice for redirecting the user to a different page, but we will handle it differently once we start using Ajax
-                res.redirect(302, '/school/all');
+                res.redirect(302, '/item/all');
             }
         });
     }
@@ -73,11 +71,11 @@ router.get('/insert', function(req, res){
 
 router.get('/edit', function(req, res){
     if(req.query.school_id == null) {
-        res.send('A school id is required');
+        res.send('A item id is required');
     }
     else {
         school_dal.edit(req.query.school_id, function(err, result){
-            res.render('school/schoolUpdate', {school: result[0][0], address: result[1]});
+            res.render('item/schoolUpdate', {school: result[0][0], address: result[1]});
         });
     }
 
@@ -85,12 +83,12 @@ router.get('/edit', function(req, res){
 
 router.get('/edit2', function(req, res){
    if(req.query.school_id == null) {
-       res.send('A school id is required');
+       res.send('A item id is required');
    }
    else {
-       school_dal.getById(req.query.school_id, function(err, school){
-           address_dal.getAll(function(err, address) {
-               res.render('school/schoolUpdate', {school: school[0], address: address});
+       item_dal.getById(req.query.school_id, function(err, item){
+           item_dal.getByIdX(req.query.i_id, function(err, itemX) {
+               res.render('item/itemUpdate', {item: item, itemX: itemX});
            });
        });
    }
@@ -99,11 +97,10 @@ router.get('/edit2', function(req, res){
 
 router.get('/update', function(req, res){
     school_dal.update(req.query, function(err, result){
-       res.redirect(302, '/school/all');
+       res.redirect(302, '/item/all');
     });
 });
 
-// Delete a school for the given school_id
 router.get('/delete', function(req, res){
     if(req.query.school_id == null) {
         res.send('school_id is null');
@@ -115,7 +112,7 @@ router.get('/delete', function(req, res){
              }
              else {
                  //poor practice, but we will handle it differently once we start using Ajax
-                 res.redirect(302, '/school/all');
+                 res.redirect(302, '/item/all');
              }
          });
     }
